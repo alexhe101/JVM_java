@@ -1,6 +1,9 @@
 package com.alex.utils;
 
 import java.io.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 /**
  * @program: jvm
@@ -11,6 +14,11 @@ import java.io.*;
 public class IOUtils {
     public static byte[] readFromByteFile(File file) throws IOException {
         BufferedInputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        return readFromInputStream(inputStream);
+    }
+
+    public static byte[] readFromInputStream(InputStream inputStream) throws IOException
+    {
         ByteArrayOutputStream outputStream  = new ByteArrayOutputStream(1024);
         byte[] temp = new byte[1024];
         int size = 0;
@@ -19,6 +27,8 @@ public class IOUtils {
         }
         inputStream.close();
         byte[] ret = outputStream.toByteArray();
+        outputStream.close();
         return ret;
     }
+
 }

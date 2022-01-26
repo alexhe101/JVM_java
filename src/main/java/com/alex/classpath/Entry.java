@@ -9,22 +9,30 @@ import java.io.IOException;
  * @create: 2022-01-12 18:39
  **/
 public abstract class Entry {
-    public static String pathListSeparator;
+    public static String pathListSeparator=System.getProperty("os.name").contains("Windows") ? ";" : ":";
+
+
+    /**
+     * read binary from a class file
+     * @param className
+     * @return bytes of class
+     * @throws IOException
+     */
     public abstract byte[] readClass(String className) throws IOException;
-    public Entry newEntry(String path)
+    public static Entry newEntry(String path)
     {
         if(path.contains(pathListSeparator))
         {
-            return null;
+            return new CompositeEntry(path);
         }
         if(path.endsWith("*"))
         {
-            return null;
+            return new WildCardEntry(path);
         }
         if(path.endsWith(".jar")||path.endsWith(".JAR")||
         path.endsWith(".zip")||path.endsWith((".ZIP")))
         {
-            return null;
+            return new ZipJarEntry(path);
         }
         return new DirEntry(path);
     }

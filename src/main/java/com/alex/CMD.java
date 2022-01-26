@@ -88,4 +88,8 @@ public class CMD {
     public Options getOptions() {
         return options;
     }
+
+    public String getXjreOption() {
+        return XjreOption;
+    }
 }
