@@ -8,7 +8,7 @@ import java.io.File;
  * @author: alex101
  * @create: 2022-01-26 11:31
  **/
-public class FileUtil {
+public class FileUtils {
     public static boolean exists(String path)
     {
         File file = new File(path);

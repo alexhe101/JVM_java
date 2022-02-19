@@ -1,7 +1,6 @@
 package com.alex.classpath;
 
-import com.alex.utils.FileUtil;
-import sun.misc.OSEnvironment;
+import com.alex.utils.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,12 +48,12 @@ public class ClassPath {
     private String getJreDir(String jreOption)
     {
         if(jreOption!=null&&jreOption!=""){
-            if(FileUtil.exists(jreOption))
+            if(FileUtils.exists(jreOption))
             {
                 return jreOption;
             }
         }
-        if(FileUtil.exists("./jre")){
+        if(FileUtils.exists("./jre")){
             return "./jre";
         }
         String jh = System.getenv("JAVA_HOME");
