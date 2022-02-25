@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import java.util.Arrays;
+
 public class OperandStack {
     private int size;
     private Slot[] slots;
@@ -59,5 +61,23 @@ public class OperandStack {
         Object ref =slots[size].getRef();
         slots[size].setRef(null);
         return ref;
+    }
+
+    public void pushSlot(Slot slot)
+    {
+        slots[size++] = slot;
+    }
+
+    public Slot popSlot()
+    {
+        return slots[--size];
+    }
+
+    @Override
+    public String toString() {
+        return "OperandStack{" +
+                "size=" + size +
+                ", slots=" + Arrays.toString(slots) +
+                '}';
     }
 }

@@ -30,4 +30,12 @@ public class Slot {
     public void setRef(Object ref) {
         this.ref = ref;
     }
+
+    @Override
+    public String toString() {
+        return "Slot{" +
+                "num=" + num +
+                ", ref=" + ref +
+                '}';
+    }
 }

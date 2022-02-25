@@ -1,5 +1,7 @@
 package com.alex.classfile;
 
+import com.alex.classfile.attribute.CodeAttribute;
+
 /**
  * @program: jvm
  * @description:member_info和field_info结构一致
@@ -32,7 +34,16 @@ public class MemberInfo {
     {
         return constantPool.getUtf8(descriptorIndex);
     }
-
+    public CodeAttribute getCodeAttribute()
+    {
+        for (int i = 0; i < attributes.length; i++) {
+            if(attributes[i] instanceof CodeAttribute)
+            {
+                return (CodeAttribute) attributes[i];
+            }
+        }
+        return null;
+    }
 //    public static MemberInfo[] readMembers(ClassReader classReader,ConstantPool cp)
 //    {
 //        int memberCount = classReader.readUint16();

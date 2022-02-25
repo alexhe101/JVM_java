@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import java.util.Arrays;
+
 public class LocalVars {
     private Slot[] slots;
     public LocalVars(int maxLocals) {
@@ -64,4 +66,10 @@ public class LocalVars {
         return slots[index].getRef();
     }
 
+    @Override
+    public String toString() {
+        return "LocalVars{" +
+                "slots=" + Arrays.toString(slots) +
+                '}';
+    }
 }

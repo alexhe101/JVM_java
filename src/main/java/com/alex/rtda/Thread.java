@@ -25,7 +25,7 @@ public class Thread {
     }
 
     //todo:frame
-    public Frame popFrame(Frame frame)
+    public Frame popFrame()
     {
         return stack.pop();
     }
@@ -34,5 +34,10 @@ public class Thread {
     public Frame currentFrame()
     {
         return stack.top();
+    }
+
+    public Frame newFrame(Thread thread,int maxLocals,int maxStack)
+    {
+        return new Frame(this,maxLocals,maxStack);
     }
 }
