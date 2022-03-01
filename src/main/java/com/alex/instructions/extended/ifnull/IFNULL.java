@@ -3,7 +3,7 @@ package com.alex.instructions.extended.ifnull;
 import com.alex.instructions.base.BranchInstruction;
 import com.alex.instructions.base.BranchLogic;
 import com.alex.rtda.Frame;
-import com.alex.rtda.Object;
+import com.alex.rtda.heap.Object;
 
 public class IFNULL extends BranchInstruction {
     @Override

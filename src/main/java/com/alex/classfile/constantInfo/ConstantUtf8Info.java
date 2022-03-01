@@ -16,6 +16,10 @@ import java.util.stream.Stream;
 public class ConstantUtf8Info extends ConstantInfo {
     private String string;
 
+    public ConstantUtf8Info(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         int length = classReader.readUint16();

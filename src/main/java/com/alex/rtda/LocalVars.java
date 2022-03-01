@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import com.alex.rtda.heap.Object;
+
 import java.util.Arrays;
 
 public class LocalVars {
@@ -55,7 +57,7 @@ public class LocalVars {
         return Double.longBitsToDouble(bits);
     }
 
-    public void setRef(int index,Object ref)
+    public void setRef(int index, Object ref)
     {
         slots[index] = new Slot();
         slots[index].setRef(ref);

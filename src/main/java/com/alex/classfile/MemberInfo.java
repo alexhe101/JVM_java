@@ -1,6 +1,7 @@
 package com.alex.classfile;
 
 import com.alex.classfile.attribute.CodeAttribute;
+import com.alex.classfile.attribute.ConstantValueAttribute;
 
 /**
  * @program: jvm
@@ -15,7 +16,11 @@ public class MemberInfo {
     private char descriptorIndex;
     private AttributeInfo[] attributes;
 
-    public MemberInfo(ClassReader classReader,ConstantPool cp)
+    public char getAccessFlags() {
+        return accessFlags;
+    }
+
+    public MemberInfo(ClassReader classReader, ConstantPool cp)
     {
         this.constantPool = cp;
         accessFlags = classReader.readUint16();
@@ -40,6 +45,17 @@ public class MemberInfo {
             if(attributes[i] instanceof CodeAttribute)
             {
                 return (CodeAttribute) attributes[i];
+            }
+        }
+        return null;
+    }
+
+    public ConstantValueAttribute getConstantValueAttribute()
+    {
+        for (int i = 0; i < attributes.length; i++) {
+            if(attributes[i] instanceof ConstantValueAttribute)
+            {
+                return (ConstantValueAttribute) attributes[i];
             }
         }
         return null;

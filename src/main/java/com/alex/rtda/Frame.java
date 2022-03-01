@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import com.alex.rtda.heap.Method;
+
 /**
  * @author alex101
  */
@@ -9,6 +11,12 @@ public class Frame {
     private OperandStack operandStack;
     private Thread thread;
     private int nextPC;
+    private Method method;
+
+
+    public Method getMethod() {
+        return method;
+    }
 
     public int getNextPC() {
         return nextPC;
@@ -18,6 +26,13 @@ public class Frame {
         this.thread = thread;
         localVars = new LocalVars(maxLocals);
         operandStack = new OperandStack(maxStack);
+    }
+
+    public Frame(Thread thread, Method method) {
+        this.thread = thread;
+        this.method = method;
+        localVars = new LocalVars(method.getMaxLocals());
+        operandStack = new OperandStack(method.getMaxStack());
     }
 
     public Frame(int maxLocals, int maxStack) {

@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import com.alex.rtda.heap.Object;
+
 import java.util.Arrays;
 
 public class OperandStack {
@@ -59,7 +61,7 @@ public class OperandStack {
     {
         --size;
         Object ref =slots[size].getRef();
-        slots[size].setRef(null);
+//        slots[size].setRef(null);
         return ref;
     }
 

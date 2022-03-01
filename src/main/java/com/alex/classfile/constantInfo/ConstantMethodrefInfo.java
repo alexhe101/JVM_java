@@ -10,7 +10,8 @@ import com.alex.classfile.ConstantPool;
  * @create: 2022-01-27 16:37
  **/
 public class ConstantMethodrefInfo extends ConstantMemberRefInfo {
-    public ConstantMethodrefInfo(ConstantPool constantPool) {
+    public ConstantMethodrefInfo(ConstantPool constantPool,int tag) {
         super(constantPool);
+        this.type = tag;
     }
 }

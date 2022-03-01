@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import com.alex.rtda.heap.Method;
+
 /**
  * @author alex101
  */
@@ -39,5 +41,9 @@ public class Thread {
     public Frame newFrame(Thread thread,int maxLocals,int maxStack)
     {
         return new Frame(this,maxLocals,maxStack);
+    }
+
+    public Frame newFrame(Method method) {
+        return new Frame(this,method);
     }
 }

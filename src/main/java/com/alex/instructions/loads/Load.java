@@ -1,7 +1,7 @@
 package com.alex.instructions.loads;
 
 import com.alex.rtda.Frame;
-import com.alex.rtda.Object;
+import com.alex.rtda.heap.Object;
 
 public class Load {
     public static void iload(Frame frame,int index)

@@ -1,7 +1,7 @@
 package com.alex.instructions.stores;
 
 import com.alex.rtda.Frame;
-import com.alex.rtda.Object;
+import com.alex.rtda.heap.Object;
 
 public class Store {
     public static void lstore(Frame frame,int index)

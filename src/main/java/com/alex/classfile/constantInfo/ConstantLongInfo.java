@@ -12,6 +12,10 @@ import com.alex.classfile.ConstantInfo;
 public class ConstantLongInfo extends ConstantInfo {
     private long val;
 
+    public ConstantLongInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         val = classReader.readUint64();

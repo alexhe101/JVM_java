@@ -12,6 +12,10 @@ import com.alex.classfile.ConstantInfo;
 public class ConstantMethodTypeInfo extends ConstantInfo {
     private int descriptorIndex;
 
+    public ConstantMethodTypeInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         descriptorIndex = classReader.readUint16();

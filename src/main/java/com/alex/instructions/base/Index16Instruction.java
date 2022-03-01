@@ -2,7 +2,7 @@ package com.alex.instructions.base;
 
 import com.alex.rtda.Frame;
 
-public class Index16Instruction implements Instruction{
+public abstract class Index16Instruction implements Instruction{
     private int index;
 
     @Override
@@ -10,8 +10,7 @@ public class Index16Instruction implements Instruction{
         index = bytecodeReader.readUint16();
     }
 
-    @Override
-    public void execute(Frame frame) {
-
+    public int getIndex() {
+        return index;
     }
 }

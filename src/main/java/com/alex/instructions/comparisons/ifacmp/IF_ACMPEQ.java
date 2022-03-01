@@ -3,7 +3,7 @@ package com.alex.instructions.comparisons.ifacmp;
 import com.alex.instructions.base.BranchInstruction;
 import com.alex.instructions.base.BranchLogic;
 import com.alex.rtda.Frame;
-import com.alex.rtda.Object;
+import com.alex.rtda.heap.Object;
 
 public class IF_ACMPEQ extends BranchInstruction {
     @Override

@@ -13,6 +13,10 @@ public class ConstantNameAndTypeInfo extends ConstantInfo {
     private int nameIndex;
     private int descriptorIndex;
 
+    public ConstantNameAndTypeInfo(byte tag) {
+        this.type = tag;
+    }
+
 
     @Override
     public void readInfo(ClassReader classReader) {

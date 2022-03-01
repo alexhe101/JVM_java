@@ -13,8 +13,9 @@ import com.alex.classfile.ConstantPool;
 public class ConstantClassInfo extends ConstantInfo {
     private ConstantPool constantPool;
     private int nameIndex;
-    public ConstantClassInfo(ConstantPool constantPool) {
+    public ConstantClassInfo(ConstantPool constantPool,int i) {
         this.constantPool = constantPool;
+        type = i;
     }
 
     @Override

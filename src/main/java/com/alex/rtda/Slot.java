@@ -1,5 +1,7 @@
 package com.alex.rtda;
 
+import com.alex.rtda.heap.Object;
+
 public class Slot {
     private int num;
     private Object ref;

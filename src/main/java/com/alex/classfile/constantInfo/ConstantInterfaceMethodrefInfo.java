@@ -10,7 +10,8 @@ import com.alex.classfile.ConstantPool;
  * @create: 2022-01-27 16:37
  **/
 public class ConstantInterfaceMethodrefInfo extends ConstantMemberRefInfo {
-    public ConstantInterfaceMethodrefInfo(ConstantPool constantPool) {
+    public ConstantInterfaceMethodrefInfo(ConstantPool constantPool,int tag) {
         super(constantPool);
+        this.type = tag;
     }
 }

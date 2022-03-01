@@ -11,7 +11,8 @@ import com.alex.classfile.ConstantPool;
  * @create: 2022-01-27 16:36
  **/
 public class ConstantFieldrefInfo extends ConstantMemberRefInfo {
-    public ConstantFieldrefInfo(ConstantPool constantPool) {
+    public ConstantFieldrefInfo(ConstantPool constantPool,int tag) {
         super(constantPool);
+        this.type = tag;
     }
 }

@@ -13,8 +13,9 @@ import com.alex.classfile.ConstantPool;
 public class ConstantStringInfo extends ConstantInfo {
     private ConstantPool constantPool;
     private int stringIndex;
-    public ConstantStringInfo(ConstantPool cp) {
+    public ConstantStringInfo(ConstantPool cp,int tag) {
         this.constantPool = cp;
+        this.type = tag;
     }
 
     @Override

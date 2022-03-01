@@ -3,6 +3,7 @@ package com.alex.classfile;
 import com.alex.classfile.constantInfo.ConstantClassInfo;
 import com.alex.classfile.constantInfo.ConstantNameAndTypeInfo;
 import com.alex.classfile.constantInfo.ConstantUtf8Info;
+import com.alex.rtda.heap.Clazz;
 
 /**
  * @program: jvm
@@ -13,6 +14,11 @@ import com.alex.classfile.constantInfo.ConstantUtf8Info;
 public class ConstantPool {
     private ConstantInfo[] constantInfos;
     private int constantPoolCount;
+
+    public ConstantInfo[] getConstantInfos() {
+        return constantInfos;
+    }
+
     public ConstantPool(ClassReader classReader) {
         //实际大小为n-1
         int cpCount = classReader.readUint16();
@@ -30,6 +36,8 @@ public class ConstantPool {
             }
         }
     }
+
+
     public ConstantInfo getConstantInfo(int index)
     {
         ConstantInfo tmp = constantInfos[index];

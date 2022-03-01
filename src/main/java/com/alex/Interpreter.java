@@ -7,19 +7,20 @@ import com.alex.instructions.base.BytecodeReader;
 import com.alex.instructions.base.Instruction;
 import com.alex.rtda.Frame;
 import com.alex.rtda.Thread;
+import com.alex.rtda.heap.Method;
 
 public class Interpreter {
-    public static void interpret(MemberInfo methodInfo)
+    public static void interpret(Method method)
     {
-        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-        int maxLocals= codeAttribute.getMaxLocals();
-        int maxStack = codeAttribute.getMaxStack();
-        byte[] bytecode=  codeAttribute.getCode();
+//        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+//        int maxLocals= codeAttribute.getMaxLocals();
+//        int maxStack = codeAttribute.getMaxStack();
+//        byte[] bytecode=  codeAttribute.getCode();
         Thread thread = new Thread();
-        Frame frame = new Frame(thread,maxLocals,maxStack);
+        Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
         try {
-            loop(thread,bytecode);
+            loop(thread,method.getCode());
         } catch (Exception e) {
             System.out.println(e);
             System.out.println("localvals:"+frame.getLocalVars());

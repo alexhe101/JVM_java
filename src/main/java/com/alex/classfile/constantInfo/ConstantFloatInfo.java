@@ -12,6 +12,10 @@ import com.alex.classfile.ConstantInfo;
 public class ConstantFloatInfo extends ConstantInfo {
     private float val;
 
+    public ConstantFloatInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         int t = classReader.readUint32();

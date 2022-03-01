@@ -9,7 +9,7 @@ import com.alex.classfile.constantInfo.*;
  * @create: 2022-01-26 22:20
  **/
 public abstract class ConstantInfo {
-//    protected int type;
+    public int type;
     public static final int CONSTANT_CLASS=7;
     public static final int CONSTANT_Fieldref=9;
     public static final int CONSTANT_Methodref=10;
@@ -39,33 +39,33 @@ public abstract class ConstantInfo {
         switch (tag)
         {
             case CONSTANT_Integer:
-                return new ConstantIntegerInfo();
+                return new ConstantIntegerInfo(tag);
             case CONSTANT_Float:
-                return new ConstantFloatInfo();
+                return new ConstantFloatInfo(tag);
             case CONSTANT_Long:
-                return new ConstantLongInfo();
+                return new ConstantLongInfo(tag);
             case CONSTANT_Double:
-                return new ConstantDoubleInfo();
+                return new ConstantDoubleInfo(tag);
             case CONSTANT_Utf8:
-                return new ConstantUtf8Info();
+                return new ConstantUtf8Info(tag);
             case CONSTANT_String:
-                return new ConstantStringInfo(constantPool );
+                return new ConstantStringInfo(constantPool,tag);
             case CONSTANT_CLASS:
-                return new ConstantClassInfo(constantPool);
+                return new ConstantClassInfo(constantPool,tag);
             case CONSTANT_Fieldref:
-                return new ConstantFieldrefInfo(constantPool);
+                return new ConstantFieldrefInfo(constantPool,tag);
             case CONSTANT_Methodref:
-                return new ConstantMethodrefInfo(constantPool);
+                return new ConstantMethodrefInfo(constantPool,tag);
             case CONSTANT_InterfaceMethodref:
-                return new ConstantInterfaceMethodrefInfo(constantPool);
+                return new ConstantInterfaceMethodrefInfo(constantPool,tag);
             case CONSTANT_NameAndType:
-                return new ConstantNameAndTypeInfo();
+                return new ConstantNameAndTypeInfo(tag);
             case CONSTANT_MethodType:
-                return new ConstantMethodTypeInfo();
+                return new ConstantMethodTypeInfo(tag);
             case CONSTANT_MethodHandle:
-                return new ConstantMethodHandleInfo();
+                return new ConstantMethodHandleInfo(tag);
             case CONSTANT_InvokeDynamic:
-                return new ConstantInvokeDynamicInfo();
+                return new ConstantInvokeDynamicInfo(tag);
             default:
                 throw new RuntimeException("java.lang.ClassFormatError:constant pool tag!");
         }

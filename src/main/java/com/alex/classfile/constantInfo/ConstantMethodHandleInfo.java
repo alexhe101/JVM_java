@@ -13,6 +13,10 @@ public class ConstantMethodHandleInfo extends ConstantInfo {
     private byte referenceKind;
     private int referenceIndex;
 
+    public ConstantMethodHandleInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         referenceKind = classReader.readUint8();

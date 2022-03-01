@@ -13,6 +13,10 @@ public class ConstantInvokeDynamicInfo extends ConstantInfo {
     private int bootstrapMethodAttrIndex;
     private int nameAndTypeIndex;
 
+    public ConstantInvokeDynamicInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         bootstrapMethodAttrIndex = classReader.readUint16();

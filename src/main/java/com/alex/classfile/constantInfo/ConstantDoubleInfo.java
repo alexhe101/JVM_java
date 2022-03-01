@@ -12,6 +12,10 @@ import com.alex.classfile.ConstantInfo;
 public class ConstantDoubleInfo extends ConstantInfo {
     private double val;
 
+    public ConstantDoubleInfo(byte tag) {
+        this.type = tag;
+    }
+
     @Override
     public void readInfo(ClassReader classReader) {
         val = Double.longBitsToDouble(classReader.readUint64());
@@ -20,4 +24,6 @@ public class ConstantDoubleInfo extends ConstantInfo {
     public double getVal() {
         return val;
     }
+
+
 }
