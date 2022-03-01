@@ -12,6 +12,8 @@ import java.util.Arrays;
  * @create: 2022-01-12 16:21
  **/
 public class CMD {
+    private boolean verboseClassFlag;
+    private boolean verboseInstFlag;
     private boolean helpFlag;
     private boolean versionFlag;
     private String cpOption;
@@ -32,6 +34,8 @@ public class CMD {
         options.addOption("classpath",true,"classpath");
         options.addOption("cp",true,"classpath");
         options.addOption("Xjre",true,"path to jre");
+        options.addOption("verboseClass",false,"verboseClassFlag");
+        options.addOption("verboseInst",false,"verboseInstFlag");
     }
 
     public void printUsage(String arg)
@@ -49,6 +53,14 @@ public class CMD {
             }
             if(cmd.hasOption("help")||cmd.hasOption("?")){
                 helpFlag=true;
+            }
+            if(cmd.hasOption("verboseClass"))
+            {
+                verboseClassFlag= true;
+            }
+            if(cmd.hasOption("verboseInst"))
+            {
+                verboseInstFlag = true;
             }
             cpOption = cmd.getOptionValue("cp");
             if(cpOption==null)
@@ -91,5 +103,13 @@ public class CMD {
 
     public String getXjreOption() {
         return XjreOption;
+    }
+
+    public boolean isVerboseClassFlag() {
+        return verboseClassFlag;
+    }
+
+    public boolean isVerboseInstFlag() {
+        return verboseInstFlag;
     }
 }

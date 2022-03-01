@@ -74,4 +74,8 @@ public class LocalVars {
                 "slots=" + Arrays.toString(slots) +
                 '}';
     }
+
+    public void setSlot(int i, Slot slot) {
+        slots[i] = slot;
+    }
 }

@@ -10,41 +10,66 @@ import com.alex.rtda.Thread;
 import com.alex.rtda.heap.Method;
 
 public class Interpreter {
-    public static void interpret(Method method)
+    public static void interpret(Method method,boolean logInst)
     {
-//        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
-//        int maxLocals= codeAttribute.getMaxLocals();
-//        int maxStack = codeAttribute.getMaxStack();
-//        byte[] bytecode=  codeAttribute.getCode();
+
         Thread thread = new Thread();
         Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
         try {
-            loop(thread,method.getCode());
+            loop(thread,logInst);
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println("localvals:"+frame.getLocalVars());
-            System.out.println(frame.getOperandStack());
+//            System.out.println("localvals:"+frame.getLocalVars());
+//            System.out.println(frame.getOperandStack());
+            logFrame(thread);
 
         }
     }
 
-    private static void loop(Thread thread,byte[] bytecode) throws Exception
+    private static void logFrame(Thread thread) {
+        while (!thread.isStackEmpty())
+        {
+            Frame frame = thread.popFrame();
+            Method method = frame.getMethod();
+            String className = method.getClazz().getName();
+            System.out.printf(">> pc:%4d %s.%s%s \n",frame.getNextPC(),className,method.getName(),method.getDescriptor());
+        }
+    }
+
+    private static void loop(Thread thread,boolean logInst) throws Exception
     {
-        Frame frame = thread.popFrame();
         BytecodeReader bytecodeReader = new BytecodeReader();
+        Frame frame;
         while (true)
         {
+            frame = thread.currentFrame();
             int pc = frame.getNextPC();
             thread.setPc(pc);
-            bytecodeReader.reset(bytecode,pc);
+            bytecodeReader.reset(frame.getMethod().getCode(), pc);
             int opcode = bytecodeReader.readUint8();
             Instruction instruction = InstructionFactory.newInstruction(opcode);
             instruction.fetchOperands(bytecodeReader);
             frame.setNextPC(bytecodeReader.getPc());
-            System.out.printf("pc:%d  inst:%s\n",pc,instruction.getClass().getSimpleName());
+            if(logInst)
+            {
+                logInstrustion(frame,instruction);
+            }
             instruction.execute(frame);
+            if(thread.isStackEmpty())
+            {
+                break;
+            }
+
         }
+    }
+
+    private static void logInstrustion(Frame frame, Instruction instruction) {
+        Method method = frame.getMethod();
+        String clsName = method.getClazz().getName();
+        String methodName = method.getName();
+        int pc = frame.getThread().getPc();
+        System.out.printf("%s.%s() #pc%2d %s\n",clsName,methodName,pc,instruction.getClass().getSimpleName());
     }
 
 

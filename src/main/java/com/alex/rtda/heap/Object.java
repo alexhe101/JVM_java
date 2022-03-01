@@ -16,4 +16,8 @@ public class Object {
     public boolean isInstanceof(Clazz clazz) {
         return clazz.isAssignableFrom(this.clazz);
     }
+
+    public Clazz getClazz() {
+        return clazz;
+    }
 }

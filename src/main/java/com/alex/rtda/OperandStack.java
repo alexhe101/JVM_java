@@ -82,4 +82,9 @@ public class OperandStack {
                 ", slots=" + Arrays.toString(slots) +
                 '}';
     }
+
+    public Object getRefFromTop(int n)
+    {
+        return slots[size-1-n].getRef();
+    }
 }

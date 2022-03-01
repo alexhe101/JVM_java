@@ -8,11 +8,13 @@ import java.io.File;
 import java.util.HashMap;
 
 public class ClassLoader {
+    private boolean verboseFlag;
     private ClassPath classPath;
     //方法区的具体实现 将class存在map中
     private HashMap<String,Clazz> classMap;
 
-    public ClassLoader(ClassPath classPath) {
+    public ClassLoader(ClassPath classPath,boolean verboseFlag) {
+        this.verboseFlag = verboseFlag;
         this.classPath = classPath;
         classMap = new HashMap<>();
     }
@@ -33,7 +35,10 @@ public class ClassLoader {
         byte[] data = readClass(name);
         Clazz clazz = defineClass(data);
         link(clazz);
-        System.out.printf("[Loaded %s]",name);
+        if(verboseFlag)
+        {
+            System.out.printf("[Loaded %s]\n",name);
+        }
         return clazz;
     }
 

@@ -51,4 +51,9 @@ public class Stack {
         }
         return top;
     }
+
+    public boolean isEmpty()
+    {
+        return top==null;
+    }
 }

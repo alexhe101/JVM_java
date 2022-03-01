@@ -7,7 +7,7 @@ public class Store {
     public static void lstore(Frame frame,int index)
     {
         long val = frame.getOperandStack().popLong();
-        frame.getLocalVars().setFloat(index,val);
+        frame.getLocalVars().setLong(index,val);
     }
 
     public static void astore(Frame frame, int index) {

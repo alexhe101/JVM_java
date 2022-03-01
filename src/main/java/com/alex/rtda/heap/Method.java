@@ -7,6 +7,15 @@ public class Method extends ClassMember{
     private int maxStack;
     private int maxLocals;
     private byte[] code;
+    private int argSlotCount;
+
+    public int getArgSlotCount() {
+        return argSlotCount;
+    }
+
+    public void setArgSlotCount(int argSlotCount) {
+        this.argSlotCount = argSlotCount;
+    }
 
     public byte[] getCode() {
         return code;
@@ -29,8 +38,25 @@ public class Method extends ClassMember{
             methods[i].setClazz(clazz);
             methods[i].copyMemberInfo(cfMethods[i]);
             methods[i].copyAttributes(cfMethods[i]);
+            methods[i].calcArgSlotCount();
         }
         return methods;
+    }
+
+    private void calcArgSlotCount() {
+        MethodDescriptor methodDescriptor = new MethodDescriptor(getDescriptor());
+        for (String paramType:
+             methodDescriptor.getParameterTypes()) {
+            argSlotCount++;
+            if(paramType.equals("J")||paramType.equals("D"))
+            {
+                argSlotCount++;
+            }
+        }
+        if(!isStatic())
+        {
+            argSlotCount++;
+        }
     }
 
     public void copyAttributes(MemberInfo memberInfo)

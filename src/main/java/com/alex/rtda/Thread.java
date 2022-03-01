@@ -38,6 +38,11 @@ public class Thread {
         return stack.top();
     }
 
+    public Frame topFrame()
+    {
+        return stack.top();
+    }
+
     public Frame newFrame(Thread thread,int maxLocals,int maxStack)
     {
         return new Frame(this,maxLocals,maxStack);
@@ -45,5 +50,9 @@ public class Thread {
 
     public Frame newFrame(Method method) {
         return new Frame(this,method);
+    }
+
+    public boolean isStackEmpty() {
+        return stack.isEmpty();
     }
 }

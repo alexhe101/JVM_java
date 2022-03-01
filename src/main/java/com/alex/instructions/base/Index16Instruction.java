@@ -3,7 +3,7 @@ package com.alex.instructions.base;
 import com.alex.rtda.Frame;
 
 public abstract class Index16Instruction implements Instruction{
-    private int index;
+    protected int index;
 
     @Override
     public void fetchOperands(BytecodeReader bytecodeReader) {

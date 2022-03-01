@@ -32,6 +32,10 @@ public class Clazz {
         return constantPool;
     }
 
+    public Method[] getMethods() {
+        return methods;
+    }
+
     public void setConstantPool(RuntimeConstantPool constantPool) {
         this.constantPool = constantPool;
     }
@@ -170,6 +174,11 @@ public class Clazz {
         return false;
     }
 
+    public boolean isSuperClassOf(Clazz sub) {
+        return sub.isSubClassOf(this);
+    }
+
+
     public Object newObject()
     {
         return new Object(this);
@@ -193,7 +202,7 @@ public class Clazz {
 
     }
 
-    private boolean isImplements(Clazz iface) {
+    public boolean isImplements(Clazz iface) {
         for (Clazz c = this;c!=null;c=c.getSuperClass())
         {
             for(int i=0;i<c.getInterfaces().length;i++)

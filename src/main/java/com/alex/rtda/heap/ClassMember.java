@@ -63,6 +63,10 @@ public class ClassMember {
         return 0 != (accessFlags & AccessFlags.ACC_SYNTHETIC);
     }
 
+    public boolean isAbstract(){
+        return (accessFlags&AccessFlags.ACC_ABSTRACT)!=0;
+    }
+
     public boolean isAccessibleTo(Clazz d) {
         if(isPublic())
         {

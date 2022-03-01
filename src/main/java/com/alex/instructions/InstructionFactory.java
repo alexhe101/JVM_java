@@ -15,6 +15,7 @@ import com.alex.instructions.*;
 import com.alex.instructions.control.GOTO;
 import com.alex.instructions.control.LOOKUP_SWITCH;
 import com.alex.instructions.control.TABLE_SWITCH;
+import com.alex.instructions.control.ret.*;
 import com.alex.instructions.conversions.d2x.*;
 import com.alex.instructions.conversions.f2x.*;
 import com.alex.instructions.conversions.i2x.*;
@@ -176,6 +177,12 @@ public class InstructionFactory
     static FCMPG fcmpg = new FCMPG();
     static DCMPL dcmpl = new DCMPL();
     static DCMPG dcmpg = new DCMPG();
+    static ARETURN areturn = new ARETURN();
+    static LRETURN lreturn = new LRETURN();
+    static IRETURN ireturn = new IRETURN();
+    static DRETURN dreturn = new DRETURN();
+    static FRETURN freturn = new FRETURN();
+    static RETURN _return = new RETURN();
     public static Instruction newInstruction(int opcode)
     {
         switch (opcode) {
@@ -523,18 +530,18 @@ public class InstructionFactory
                 return new TABLE_SWITCH();
             case 0xab:
                 return new LOOKUP_SWITCH();
-//            case 0xac:
-//                return ireturn;
-//            case 0xad:
-//                return lreturn;
-//            case 0xae:
-//                return freturn;
-//            case 0xaf:
-//                return dreturn;
-//            case 0xb0:
-//                return areturn;
-//            case 0xb1:
-//                return _return;
+            case 0xac:
+                return ireturn;
+            case 0xad:
+                return lreturn;
+            case 0xae:
+                return freturn;
+            case 0xaf:
+                return dreturn;
+            case 0xb0:
+                return areturn;
+            case 0xb1:
+                return _return;
             case 0xb2:
                 return new GET_STATIC();
             case 0xb3:
@@ -547,10 +554,10 @@ public class InstructionFactory
                 return new INVOKE_VIRTUAL();
             case 0xb7:
                 return new INVOKE_SPECIAL();
-//            case 0xb8:
-//                return new INVOKE_STATIC();
-//            case 0xb9:
-//                return new INVOKE_INTERFACE();
+            case 0xb8:
+                return new INVOKE_STATIC();
+            case 0xb9:
+                return new INVOKE_INTERFACE();
 //            // case 0xba:
 //            // 	return new INVOKE_DYNAMIC();
             case 0xbb:
