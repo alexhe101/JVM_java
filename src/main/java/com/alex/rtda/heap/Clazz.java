@@ -352,6 +352,21 @@ public class Clazz {
         return loader.loadClass(componentClassName);
     }
 
+    public Field getField(String name, String descriptor, boolean isStatic) {
+        for(Clazz c = this;c!=null;c= c.superClass)
+        {
+            for (Field field:
+                 fields) {
+                if(field.isStatic()==isStatic&&field.getName().equals(name)
+                &&field.getDescriptor().equals(descriptor))
+                {
+                    return field;
+                }
+            }
+        }
+        return null;
+    }
+
 
     //todo:isaccessiable
 //    public boolean isAccessibleTo(Clazz other) {

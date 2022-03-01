@@ -7,15 +7,19 @@ import com.alex.instructions.base.BytecodeReader;
 import com.alex.instructions.base.Instruction;
 import com.alex.rtda.Frame;
 import com.alex.rtda.Thread;
-import com.alex.rtda.heap.Method;
+import com.alex.rtda.heap.*;
+import com.alex.rtda.heap.ClassLoader;
+import com.alex.rtda.heap.Object;
 
 public class Interpreter {
-    public static void interpret(Method method,boolean logInst)
+    public static void interpret(Method method,boolean logInst,String[] args)
     {
 
         Thread thread = new Thread();
         Frame frame = thread.newFrame(method);
         thread.pushFrame(frame);
+        Object jArgs= craeteArgsArray(method.getClazz().getLoader(),args);
+        frame.getLocalVars().setRef(0,jArgs);
         try {
             loop(thread,logInst);
         } catch (Exception e) {
@@ -25,6 +29,17 @@ public class Interpreter {
             logFrame(thread);
 
         }
+    }
+
+    private static Object craeteArgsArray(ClassLoader loader, String[] args) {
+        Clazz stringClazz= loader.loadClass("java/lang/String");
+        Object argsArr = stringClazz.arrClass().newArray(args.length);
+        Object[] jArgs = argsArr.getRefs();
+        for(int i=0;i< jArgs.length;i++)
+        {
+            jArgs[i] = StringPool.jString(loader,args[i]);
+        }
+        return argsArr;
     }
 
     private static void logFrame(Thread thread) {

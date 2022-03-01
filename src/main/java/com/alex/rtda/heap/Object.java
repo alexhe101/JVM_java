@@ -15,6 +15,13 @@ public class Object {
         this.data = data;
     }
 
+    public void setRefVal(String name,String descriptor,Object ref)
+    {
+        Field field = clazz.getField(name,descriptor,false);
+        Slots slots = (Slots) data;
+        slots.setRef(field.getSlotId(),ref);
+    }
+
     public Slots getFields() {
         return (Slots) data;
     }
@@ -81,5 +88,11 @@ public class Object {
             default:
                 throw new RuntimeException("called length on a none array object!");
         }
+    }
+
+    public Object getRefVar(String name, String descriptor) {
+        Field field = clazz.getField(name,descriptor,false);
+        Slots slots = (Slots) data;
+        return slots.getRef(field.getSlotId());
     }
 }

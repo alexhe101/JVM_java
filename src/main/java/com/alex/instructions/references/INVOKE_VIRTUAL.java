@@ -85,6 +85,11 @@ public class INVOKE_VIRTUAL extends Index16Instruction {
             case "(D)V":
                 System.out.println(stack.popDouble());
                 break;
+            case "(Ljava/lang/String;)V":
+                Object jstr = stack.popRef();
+                String str =StringPool.realString(jstr);
+                System.out.println(str);
+                break;
             default:
                 throw  new Error("println "+descriptor);
 

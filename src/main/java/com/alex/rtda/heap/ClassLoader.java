@@ -108,7 +108,9 @@ public class ClassLoader {
                     break;
                     //todo:panic
                 case "Ljava/lang/String;":
-                    throw new RuntimeException("todo");
+                    String str = (String) constantPool.getConstant(cpIndex).getValue();
+                    Object jstr = StringPool.jString(clazz.getLoader(),str);
+                    vars.setRef(slotId,jstr);
             }
         }
     }

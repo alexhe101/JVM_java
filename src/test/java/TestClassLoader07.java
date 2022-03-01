@@ -16,7 +16,7 @@ public class TestClassLoader07 {
         Method mainMethod = mainClass.getMainMethod();
         if(mainMethod!=null)
         {
-            Interpreter.interpret(mainMethod, cmd.isVerboseInstFlag());
+            Interpreter.interpret(mainMethod, cmd.isVerboseInstFlag(), cmd.getArgs());
         }else {
             System.out.println("Main method not found "+cmd.getCls());
         }
