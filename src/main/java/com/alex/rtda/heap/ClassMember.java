@@ -1,6 +1,7 @@
 package com.alex.rtda.heap;
 
 import com.alex.classfile.MemberInfo;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
  * @author alex101
@@ -66,6 +67,8 @@ public class ClassMember {
     public boolean isAbstract(){
         return (accessFlags&AccessFlags.ACC_ABSTRACT)!=0;
     }
+
+    public boolean isNative() {return (accessFlags&AccessFlags.ACC_NATIVE)!=0;}
 
     public boolean isAccessibleTo(Clazz d) {
         if(isPublic())

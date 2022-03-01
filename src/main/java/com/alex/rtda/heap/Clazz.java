@@ -5,12 +5,15 @@ import com.alex.classfile.ConstantPool;
 import com.alex.classfile.MemberInfo;
 import com.alex.rtda.Slot;
 
+import javax.management.RuntimeErrorException;
+
 //类信息 保存在方法区中
 public class Clazz {
     private int accessFlags;
     private String name;
     private String superClassName;
     private String[] interfaceNames;
+    private boolean initStarted;
     //运行时常量池
     private RuntimeConstantPool constantPool;
     //字段信息
@@ -28,9 +31,31 @@ public class Clazz {
     //静态变量
     private Slots staticVars;
 
+    public Clazz(int accessFlags, String name, ClassLoader classLoader, boolean initStarted, Clazz superClass, Clazz[] interfaces) {
+        this.accessFlags = accessFlags;
+        this.name = name;
+        this.loader = classLoader;
+        this.initStarted=  initStarted;
+        this.superClass = superClass;
+        this.interfaces = interfaces;
+
+    }
+
     public RuntimeConstantPool getConstantPool() {
         return constantPool;
     }
+
+    public boolean isInitStarted()
+    {
+        return initStarted;
+    }
+
+    public void startInit()
+    {
+        initStarted = true;
+    }
+
+
 
     public Method[] getMethods() {
         return methods;
@@ -184,24 +209,97 @@ public class Clazz {
         return new Object(this);
     }
 
-    //src是否由target拓展
-    public boolean isAssignableFrom(Clazz clazz) {
-        Clazz src=clazz;
-        Clazz target = this;
-        if(src==target)
+    public Object newArray(int count)
+    {
+        if(!isArray())
         {
-            return true;
+            throw new RuntimeException("not array class"+getName());
         }
-        if(!target.isInterface())
-        {
-            return src.isSubClassOf(target);
-        }else {
-            return src.isImplements(target);
+        switch (getName()) {
+            case "[Z":
+                return new Object(this, new byte[count], null);
+            case "[B":
+                return new Object(this, new byte[count], null);
+            case "[C":
+                return new Object(this, new char[count], null);
+            case "[S":
+                return new Object(this, new short[count], null);
+            case "[I":
+                return new Object(this, new int[count], null);
+            case "[J":
+                return new Object(this, new long[count], null);
+            case "[F":
+                return new Object(this, new float[count], null);
+            case "[D":
+                return new Object(this, new double[count], null);
+            default:
+                return new Object(this, new Object[count], null);
         }
-
-
     }
 
+    private boolean isArray() {
+            return name.startsWith("[");
+    }
+
+    public boolean isJlObject() {
+        return "java/lang/Object".equals(name);
+    }
+
+        //src是否由target拓展
+        public boolean isAssignableFrom(Clazz source) {
+            // source 是否由 target 扩展而来（子类）
+            Clazz target = this;
+            if (source == target) {
+                return true;
+            }
+
+            if (!source.isArray()) {
+                if (!source.isInterface()) {
+                    if (!target.isInterface()) {
+                        return source.isSubClassOf(target);
+                    } else {
+                        // target 是接口
+                        return source.isImplements(target);
+                    }
+                } else {
+                    // source 是接口
+                    if (!target.isInterface()) {
+                        return target.isJlObject();
+                    } else {
+                        // target 也是接口
+                        return target.isSuperInterfaceOf(source);
+                    }
+                }
+            } else {
+                //source 是数组
+                if (!target.isArray()) {
+                    if (!target.isInterface()) {
+                        return target.isJlObject();
+                    } else {
+                        // target 是接口
+                        // t is interface;数组默认实现了Cloneable和Serializable接口
+                        return target.isJlCloneable() || target.isJioSerializable();
+                    }
+                } else {
+                    // target 也是数组
+                    Clazz sc = source.getComponentClass();
+                    Clazz tc = target.getComponentClass();
+                    return sc == tc || tc.isAssignableFrom(source);
+                }
+            }
+        }
+
+
+    private boolean isJlCloneable() {
+        return "java/lang/Cloneable".equals(name);
+    }
+
+    public boolean isJioSerializable() {
+        return "java/io/Serializable".equals(name);
+    }
+    private boolean isSuperInterfaceOf(Clazz source) {
+        return source.isSubInterfaceOf(this);
+    }
     public boolean isImplements(Clazz iface) {
         for (Clazz c = this;c!=null;c=c.getSuperClass())
         {
@@ -239,6 +337,21 @@ public class Clazz {
         }
         return null;
     }
+
+    public Method getClinitMethod() {
+        return getStaticMethod("<clinit>","()V");
+    }
+
+    public Clazz arrClass() {
+        String arrClassName = ClassNameHelper.getArrayClassName(name);
+        return loader.loadClass(arrClassName);
+    }
+
+    public Clazz getComponentClass() {
+        String componentClassName = ClassNameHelper.getComponentClassName(name);
+        return loader.loadClass(componentClassName);
+    }
+
 
     //todo:isaccessiable
 //    public boolean isAccessibleTo(Clazz other) {

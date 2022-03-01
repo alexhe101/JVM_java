@@ -25,8 +25,19 @@ public class ClassLoader {
         {
             return classMap.get(name);
         }
+        if(name.charAt(0)=='[')
+        {
+            return loadArrayClass(name);
+        }
         return loadNonArrayClass(name);
 
+    }
+
+    private Clazz loadArrayClass(String name) {
+        Clazz clazz = new Clazz(AccessFlags.ACC_PUBLIC,name,this,true,loadClass("java/lang/Object"),
+                new Clazz[]{loadClass("java/lang/Cloneable"),loadClass("java/io/Serializable")});
+        classMap.put(name,clazz);
+        return clazz;
     }
 
     //jvm类加载机制

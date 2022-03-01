@@ -33,4 +33,18 @@ public class Load {
         long val = frame.getLocalVars().getLong(index);
         frame.getOperandStack().pushLong(val);
     }
+
+    public static void checkNotNull(Object arrRef) {
+        if(arrRef==null)
+        {
+            throw new NullPointerException();
+        }
+    }
+
+    public static void checkIndex(int arrayLen, int index) {
+        if(index<0||index>=arrayLen)
+        {
+            throw new ArrayIndexOutOfBoundsException();
+        }
+    }
 }

@@ -30,6 +30,7 @@ import com.alex.instructions.loads.dload.*;
 import com.alex.instructions.loads.fload.*;
 import com.alex.instructions.loads.iload.*;
 import com.alex.instructions.loads.lload.*;
+import com.alex.instructions.loads.xload.*;
 import com.alex.instructions.math.add.*;
 import com.alex.instructions.math.add.*;
 import com.alex.instructions.math.add.*;
@@ -52,6 +53,9 @@ import com.alex.instructions.stores.dstore.*;
 import com.alex.instructions.stores.fstore.*;
 import com.alex.instructions.stores.istore.*;
 import com.alex.instructions.stores.lstore.*;
+import com.alex.instructions.stores.xastore.*;
+import com.alex.instructions.stores.xastore.IASTORE;
+import com.alex.instructions.stores.xastore.LASTORE;
 import jdk.nashorn.internal.runtime.regexp.joni.constants.internal.OPCode;
 
 public class InstructionFactory
@@ -183,6 +187,24 @@ public class InstructionFactory
     static DRETURN dreturn = new DRETURN();
     static FRETURN freturn = new FRETURN();
     static RETURN _return = new RETURN();
+    static IASTORE iastore = new IASTORE();
+    static LASTORE lastore = new LASTORE();
+    static FASTORE fastore = new FASTORE();
+    static DASTORE dastore = new DASTORE();
+    static AASTORE aastore = new AASTORE();
+    static BASTORE bastore = new BASTORE();
+    static CASTORE castore = new CASTORE();
+    static SASTORE sastore = new SASTORE();
+
+    static IALOAD iaload = new IALOAD();
+    static LALOAD laload = new LALOAD();
+    static FALOAD faload = new FALOAD();
+    static DALOAD daload = new DALOAD();
+    static AALOAD aaload = new AALOAD();
+    static BALOAD baload = new BALOAD();
+    static CALOAD caload = new CALOAD();
+    static SALOAD saload = new SALOAD();
+    static ARRAY_LENGTH arraylength = new ARRAY_LENGTH();
     public static Instruction newInstruction(int opcode)
     {
         switch (opcode) {
@@ -278,22 +300,22 @@ public class InstructionFactory
                 return aload_2;
             case 0x2d:
                 return aload_3;
-//            case 0x2e:
-//                return iaload;
-//            case 0x2f:
-//                return laload;
-//            case 0x30:
-//                return faload;
-//            case 0x31:
-//                return daload;
-//            case 0x32:
-//                return aaload;
-//            case 0x33:
-//                return baload;
-//            case 0x34:
-//                return caload;
-//            case 0x35:
-//                return saload;
+            case 0x2e:
+                return iaload;
+            case 0x2f:
+                return laload;
+            case 0x30:
+                return faload;
+            case 0x31:
+                return daload;
+            case 0x32:
+                return aaload;
+            case 0x33:
+                return baload;
+            case 0x34:
+                return caload;
+            case 0x35:
+                return saload;
             case 0x36:
                 return new ISTORE();
             case 0x37:
@@ -344,22 +366,22 @@ public class InstructionFactory
                 return astore_2;
             case 0x4e:
                 return astore_3;
-//            case 0x4f:
-//                return iastore;
-//            case 0x50:
-//                return lastore;
-//            case 0x51:
-//                return fastore;
-//            case 0x52:
-//                return dastore;
-//            case 0x53:
-//                return aastore;
-//            case 0x54:
-//                return bastore;
-//            case 0x55:
-//                return castore;
-//            case 0x56:
-//                return sastore;
+            case 0x4f:
+                return iastore;
+            case 0x50:
+                return lastore;
+            case 0x51:
+                return fastore;
+            case 0x52:
+                return dastore;
+            case 0x53:
+                return aastore;
+            case 0x54:
+                return bastore;
+            case 0x55:
+                return castore;
+            case 0x56:
+                return sastore;
             case 0x57:
                 return pop;
             case 0x58:
@@ -562,12 +584,12 @@ public class InstructionFactory
 //            // 	return new INVOKE_DYNAMIC();
             case 0xbb:
                 return new NEW();
-//            case 0xbc:
-//                return new NEW_ARRAY();
-//            case 0xbd:
-//                return new ANEW_ARRAY();
-//            case 0xbe:
-//                return arraylength;
+            case 0xbc:
+                return new NEW_ARRAY();
+            case 0xbd:
+                return new ANEW_ARRAY();
+            case 0xbe:
+                return arraylength;
 //            case 0xbf:
 //                return athrow;
             case 0xc0:
@@ -580,8 +602,8 @@ public class InstructionFactory
             // 	return monitorexit;
             case 0xc4:
                 return new WIDE();
-//            case 0xc5:
-//                return new MULTI_ANEW_ARRAY();
+            case 0xc5:
+                return new MULTI_ANEW_ARRAY();
             case 0xc6:
                 return new IFNULL();
             case 0xc7:

@@ -8,9 +8,19 @@ import com.alex.rtda.heap.Method;
 public class MethodInovkeLogic {
     public static void InvokeMethod(Frame invokerFrame, Method method)
     {
+
         Thread thread = invokerFrame.getThread();
         Frame newFrame = thread.newFrame(method);
         thread.pushFrame(newFrame);
+        if(method.isNative())
+        {
+            if(method.getName().equals("registerNatives"))
+            {
+                thread.popFrame();
+            }else {
+                throw new RuntimeException("native method "+method.getName());
+            }
+        }
         int argSlotCount = method.getArgSlotCount();
         if(argSlotCount>0)
         {

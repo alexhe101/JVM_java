@@ -1,5 +1,6 @@
 package com.alex.instructions.references;
 
+import com.alex.instructions.base.ClassInitLogic;
 import com.alex.instructions.base.Index16Instruction;
 import com.alex.rtda.Frame;
 import com.alex.rtda.OperandStack;
@@ -26,6 +27,12 @@ public class PUT_STATIC extends Index16Instruction {
             {
                 throw new IllegalAccessError();
             }
+        }
+        if(!clazz.isInitStarted())
+        {
+            frame.revertNextPc();
+            ClassInitLogic.initClass(frame.getThread(),clazz);
+            return;
         }
         String descriptor = field.getDescriptor();
         int slotId = field.getSlotId();
